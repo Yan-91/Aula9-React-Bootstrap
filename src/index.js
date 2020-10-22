@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import jwt_decode from "jwt-decode";
 import './index.css';
 import Home from './pages/home';
 import Login from './pages/Login';
 import Cadastrar from './pages/cadastrar';
 import Eventos from './pages/eventos';
+import Dashboard from './pages/Admin/dashboard';
+
 
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 
 const routing = (
   <Router>
@@ -17,6 +21,7 @@ const routing = (
       <Route path='/login' component={Login} />
       <Route path='/cadastrar' component={Cadastrar} />
       <Route path= '/eventos' component= {Eventos} />
+      <Route path= '/Admin/dasboard' component= {Dashboard} />
   
     </Switch>
   </Router>

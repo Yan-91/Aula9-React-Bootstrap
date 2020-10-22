@@ -40,6 +40,16 @@ const Login = () => {
             .then(data => {
                 
                 localStorage.setItem('token-nyous-tarde', data.token);
+
+                let  usuario = jwt_decode(data.token);
+
+                console.log(usuario);
+
+                if(usuario.role === 'Admin')
+                    history.Admin('/Admin/dashboard');
+
+                else
+                      history.push('/dashboard')
                
                 history.push('/eventos');
 
