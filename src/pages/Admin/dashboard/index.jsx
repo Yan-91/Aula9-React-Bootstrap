@@ -1,15 +1,18 @@
-import React from 'react';
-import Menu from '../../components/menu';
-import Rodape from '../../components/rodape';
 
-const Dashboard = () => {
- 
+import React, { useEffect } from 'react';
+import Menu from '../../../components/menu';
+import Rodape from '../../../components/rodape';
+
+const DashBoard = () => {
+
     return (
         <div>
-         <Menu />
-         <h1>Dashboard</h1>
-         <Rodape />
-         </div>
+            <Menu />
+            <h1> DashBoard </h1>
+            <Rodape />
+        </div>
     )
+
 }
-export default Dashboard;
+
+export default DashBoard;

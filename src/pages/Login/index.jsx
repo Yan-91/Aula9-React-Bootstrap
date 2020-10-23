@@ -1,62 +1,53 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-
+import jwt_decode from "jwt-decode";
 import Menu from '../../components/menu';
 import Rodape from '../../components/rodape';
 import {Container, Form, Button} from 'react-bootstrap';
 import logo from '../../Assets/img/Logo.svg';
 
 const Login = () => {
-       const history = useHistory();
-       const [email, setEmail] = useState('');
-       const [senha, setSenha] = useState('');
+    const history = useHistory();
+    //string email {get; set;}
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
 
-       const logar = (event) => {
-           event.preventDefaul();
-           //$
-                fetch('http://localhost:5000/api/account/login',{
-                    method : 'POST',
-                    body : JSON.stringify({
+    const logar = (event) => {
+        event.preventDefault();
 
-                        email : email,
-                        senha : senha
-                    }),
-                    headers : {
-                        
-                         'content-type' : 'application/json'
-                    }
-                }
+        //$"{email} - {senha}"
+        // email + ' - ' + senha
+        //this.state.email
 
-            )
-            .then(response => {
-                if(response.ok === true){
-                    return response.json();
-                }
-                
-                alert('Dados Inválidos');
-                
+        fetch('http://localhost:62602/api/account/login',{
+            method : 'POST',
+            body : JSON.stringify({
+                email : email,
+                senha : senha
+            }),
+            headers : {
+                'content-type' : 'application/json'
+            }
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
 
-            })
-            .then(data => {
-                
-                localStorage.setItem('token-nyous-tarde', data.token);
+            alert('Dados Inválidos');
+        })
+        .then(data => {
+            localStorage.setItem('token-nyous-tarde', data.token);
 
-                let  usuario = jwt_decode(data.token);
+            let usuario = jwt_decode(data.token);
 
-                console.log(usuario);
-
-                if(usuario.role === 'Admin')
-                    history.Admin('/Admin/dashboard');
-
-                else
-                      history.push('/dashboard')
-               
+            if(usuario.role === 'Admin')
+                history.push('/admin/dashboard');
+            else
                 history.push('/eventos');
-
-            })
-            .catch(err => console.error(err));
-           console.log('${email} - ${senha}');
-       }
+        })
+        .catch(err => console.error(err));
+    }
 
       return (
           <div>
